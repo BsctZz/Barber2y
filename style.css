@@ -296,62 +296,55 @@ p {
   z-index: 2;
 }
 
-@media (min-width: 901px) {
-  .brand {
-    min-width: 220px;
-  }
-}
-
 .brand__wordmark {
   height: 74px;
   width: auto;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.brand__badge {
+.brand__popout {
   position: absolute;
   left: 0;
-  top: 50%;
-  height: 74px;
-  width: auto;
-  max-width: none;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  top: 6px;
+  width: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
   pointer-events: none;
+  transform: translateY(-6px) scale(0.7);
+  transform-origin: top center;
+  transition: opacity 0.45s cubic-bezier(0.16, 0.8, 0.24, 1), transform 0.45s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+
+.brand__badge {
+  height: 108px;
+  width: 108px;
+  border-radius: 50%;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), 0 0 0 3px var(--accent);
-  transform: translateY(-50%) scale(0.55);
-  transition: opacity 0.45s cubic-bezier(0.16, 0.8, 0.24, 1), height 0.45s cubic-bezier(0.16, 0.8, 0.24, 1),
-    transform 0.45s cubic-bezier(0.16, 0.8, 0.24, 1);
 }
 
 .brand__name {
-  position: absolute;
-  left: 126px;
-  top: 50%;
-  transform: translateY(-50%) translateX(-8px);
-  margin: 0;
+  margin: 0.55rem 0 0;
+  text-align: center;
   white-space: nowrap;
   font-family: var(--font-title);
   font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
   color: var(--blanc);
   text-transform: uppercase;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
 }
 
 .brand__name span {
   display: block;
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
   color: var(--gris-clair);
   text-transform: uppercase;
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .header.is-scrolled .brand__wordmark {
@@ -359,26 +352,27 @@ p {
   transform: scale(0.85);
 }
 
-.header.is-scrolled .brand__badge {
+.header.is-scrolled .brand__popout {
   opacity: 1;
-  height: 108px;
-  transform: translateY(-32%) scale(1);
-}
-
-.header.is-scrolled .brand__name {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateY(0) scale(1);
 }
 
 @media (max-width: 640px) {
-  .header.is-scrolled .brand__badge {
-    height: 86px;
-    transform: translateY(-28%) scale(1);
+  .brand__popout {
+    width: 100px;
   }
 
-  /* Pas assez de place à côté du bouton Réserver : le médaillon seul suffit */
-  .header.is-scrolled .brand__name {
-    opacity: 0;
+  .brand__badge {
+    height: 84px;
+    width: 84px;
+  }
+
+  .brand__name {
+    font-size: 0.85rem;
+  }
+
+  .brand__name span {
+    font-size: 0.52rem;
   }
 }
 
@@ -524,8 +518,7 @@ p {
   }
 
   .brand__wordmark,
-  .brand__badge,
-  .brand__name {
+  .brand__popout {
     transition: none !important;
   }
 }
