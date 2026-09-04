@@ -32,6 +32,16 @@
     });
   }
 
+  // ---------- Logo médaillon au scroll ----------
+  var header = document.querySelector(".header");
+  if (header) {
+    var toggleHeaderScrolled = function () {
+      header.classList.toggle("is-scrolled", window.scrollY > 60);
+    };
+    toggleHeaderScrolled();
+    window.addEventListener("scroll", toggleHeaderScrolled, { passive: true });
+  }
+
   // ---------- Cookie banner (RGPD) ----------
   var cookieBanner = document.getElementById("cookie-banner");
   var cookieAccept = document.getElementById("cookie-accept");
