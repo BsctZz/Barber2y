@@ -308,6 +308,8 @@ p {
   top: 50%;
   height: 74px;
   width: auto;
+  max-width: none;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
