@@ -12,7 +12,7 @@
   function closeNav() {
     nav.setAttribute("data-open", "false");
     navToggle.setAttribute("aria-expanded", "false");
-    document.body.removeAttribute("data-nav-open");
+    document.documentElement.removeAttribute("data-nav-open");
   }
 
   if (navToggle && nav) {
@@ -21,9 +21,9 @@
       nav.setAttribute("data-open", String(!isOpen));
       navToggle.setAttribute("aria-expanded", String(!isOpen));
       if (isOpen) {
-        document.body.removeAttribute("data-nav-open");
+        document.documentElement.removeAttribute("data-nav-open");
       } else {
-        document.body.setAttribute("data-nav-open", "true");
+        document.documentElement.setAttribute("data-nav-open", "true");
       }
     });
 
@@ -37,6 +37,11 @@
   var cookieAccept = document.getElementById("cookie-accept");
   var cookieRefuse = document.getElementById("cookie-refuse");
   var CONSENT_KEY = "barber2y_cookie_consent";
+  var backToTop = document.getElementById("back-to-top");
+
+  function markCookieDismissed() {
+    if (backToTop) backToTop.classList.add("cookie-dismissed");
+  }
 
   function loadAnalyticsIfConsented() {
     var consent = localStorage.getItem(CONSENT_KEY);
@@ -48,9 +53,12 @@
   try {
     if (cookieBanner && !localStorage.getItem(CONSENT_KEY)) {
       cookieBanner.hidden = false;
+    } else {
+      markCookieDismissed();
     }
   } catch (e) {
     /* localStorage indisponible (navigation privée) : on n'affiche pas le bandeau */
+    markCookieDismissed();
   }
 
   if (cookieAccept) {
@@ -59,6 +67,7 @@
         localStorage.setItem(CONSENT_KEY, "accepted");
       } catch (e) {}
       cookieBanner.hidden = true;
+      markCookieDismissed();
       loadAnalyticsIfConsented();
     });
   }
@@ -69,6 +78,20 @@
         localStorage.setItem(CONSENT_KEY, "refused");
       } catch (e) {}
       cookieBanner.hidden = true;
+      markCookieDismissed();
+    });
+  }
+
+  // ---------- Bouton retour en haut ----------
+  if (backToTop) {
+    var toggleBackToTop = function () {
+      backToTop.classList.toggle("is-visible", window.scrollY > 500);
+    };
+    toggleBackToTop();
+    window.addEventListener("scroll", toggleBackToTop, { passive: true });
+
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
   }
 
