@@ -296,6 +296,12 @@ p {
   z-index: 2;
 }
 
+@media (min-width: 901px) {
+  .brand {
+    min-width: 220px;
+  }
+}
+
 .brand__wordmark {
   height: 74px;
   width: auto;
@@ -319,6 +325,35 @@ p {
     transform 0.45s cubic-bezier(0.16, 0.8, 0.24, 1);
 }
 
+.brand__name {
+  position: absolute;
+  left: 126px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  color: var(--blanc);
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
+}
+
+.brand__name span {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--gris-clair);
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
 .header.is-scrolled .brand__wordmark {
   opacity: 0;
   transform: scale(0.85);
@@ -330,10 +365,20 @@ p {
   transform: translateY(-32%) scale(1);
 }
 
+.header.is-scrolled .brand__name {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
 @media (max-width: 640px) {
   .header.is-scrolled .brand__badge {
     height: 86px;
     transform: translateY(-28%) scale(1);
+  }
+
+  /* Pas assez de place à côté du bouton Réserver : le médaillon seul suffit */
+  .header.is-scrolled .brand__name {
+    opacity: 0;
   }
 }
 
@@ -479,7 +524,8 @@ p {
   }
 
   .brand__wordmark,
-  .brand__badge {
+  .brand__badge,
+  .brand__name {
     transition: none !important;
   }
 }
