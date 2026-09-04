@@ -278,8 +278,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(11, 11, 11, 0.94);
-  backdrop-filter: blur(8px);
+  background: rgba(11, 11, 11, 0.97);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
