@@ -1,0 +1,566 @@
+<!--
+  TODO avant mise en ligne :
+  - Remplacer le domaine placeholder https://www.barber2y.fr partout (canonical, OG, JSON-LD, sitemap.xml, robots.txt)
+  - Remplacer toutes les infos [À COMPLÉTER] (adresse, téléphone, horaires, réseaux sociaux, SIRET)
+  - Remplacer les blocs .ph (placeholders gris) par de vraies photos WebP compressées (<200 Ko), en gardant width/height
+  - Brancher le bouton "Réserver" vers l'outil de réservation choisi (actuellement pointe vers #contact)
+  - Configurer l'envoi du formulaire de contact (EmailJS ou équivalent) dans script.js
+-->
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barber 2Y — Barbershop, coupe &amp; barbe</title>
+  <meta name="description" content="Barber 2Y, votre barbershop pour coupe, barbe et style. Coupe dès 15€, abonnements fidélité, produits de soin. Réservez votre créneau en quelques clics." />
+  <meta name="keywords" content="barbershop, coupe homme, barbe, salon de coiffure homme, abonnement coiffeur, Barber 2Y" />
+  <meta name="author" content="Barber 2Y" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.barber2y.fr/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.barber2y.fr/" />
+  <meta property="og:title" content="Barber 2Y — Barbershop, coupe &amp; barbe" />
+  <meta property="og:description" content="Plus qu'une coupe, une expérience. Découvrez nos prestations, nos abonnements fidélité et notre salon." />
+  <meta property="og:image" content="https://www.barber2y.fr/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Barber 2Y" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Barber 2Y — Barbershop, coupe &amp; barbe" />
+  <meta name="twitter:description" content="Plus qu'une coupe, une expérience. Coupe, barbe, abonnements fidélité." />
+  <meta name="twitter:image" content="https://www.barber2y.fr/images/og-image.png" />
+
+  <!-- Schema JSON-LD : commerce local -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "Barber 2Y",
+    "image": "https://www.barber2y.fr/images/og-image.png",
+    "url": "https://www.barber2y.fr",
+    "telephone": "[À COMPLÉTER]",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[À COMPLÉTER]",
+      "addressLocality": "[À COMPLÉTER]",
+      "postalCode": "[À COMPLÉTER]",
+      "addressCountry": "FR"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "20:00"
+      }
+    ],
+    "sameAs": [
+      "[À COMPLÉTER — Instagram]",
+      "[À COMPLÉTER — TikTok]"
+    ]
+  }
+  </script>
+
+  <!-- Favicons / PWA -->
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b0b0b" />
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu</a>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#accueil" class="brand" aria-label="Barber 2Y — accueil">
+        <img src="images/logo/logo-header.png" width="480" height="501" alt="Barber 2Y" loading="eager" />
+      </a>
+
+      <nav class="nav" id="site-nav" data-open="false" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#prestations">Prestations</a>
+        <a href="#abonnements">Abonnements</a>
+        <a href="#salon">Le salon</a>
+        <a href="#actualites">Actualités</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="#contact" class="btn btn-primary">Réserver</a>
+        <button class="nav-toggle" id="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- ============ HERO ============ -->
+    <section class="hero container" id="accueil">
+      <div class="hero__content">
+        <p class="hero__lead">Barber &middot; Style &middot; Confiance</p>
+        <h1>
+          Plus qu'une coupe.
+          <span class="accent">Une expérience.</span>
+        </h1>
+        <p>
+          Chez Barber 2Y, chaque rendez-vous est pensé pour votre confort : coupe précise, barbe soignée
+          et conseils sur-mesure, dans un salon pensé pour la détente.
+        </p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
+          <a href="#salon" class="btn btn-outline">Découvrir le salon</a>
+        </div>
+        <div class="hero__badges">
+          <div class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.4 6.5L21 9l-5 4.6L17.4 21 12 17.3 6.6 21 8 13.6 3 9l6.6-.5z"/></svg>
+            Expertise
+          </div>
+          <div class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            Qualité
+          </div>
+          <div class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.35-9.5-8.8C.7 8.6 2.4 5 6 5c2 0 3.5 1.1 4.5 2.6C11.5 6.1 13 5 15 5c3.6 0 5.3 3.6 3.5 7.2C19 16.65 12 21 12 21z"/></svg>
+            Passion
+          </div>
+          <div class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.8-3 8.6-7 10-4-1.4-7-5.2-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            Confiance
+          </div>
+        </div>
+      </div>
+      <div class="hero__media">
+        <div class="ph ph--hero" role="img" aria-label="Photo de l'intérieur du salon Barber 2Y" data-todo="photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+          <span>Photo du salon</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRESTATIONS ============ -->
+    <section class="section" id="prestations">
+      <div class="container">
+        <p class="eyebrow" style="text-align:center; display:block;">Nos savoir-faire</p>
+        <h2 class="section-title">Nos prestations</h2>
+
+        <div class="grid grid--4">
+          <article class="card">
+            <div class="ph ph--square" role="img" aria-label="Photo prestation coupe" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <h3>Coupe</h3>
+              <p class="card__price">À partir de 15 €</p>
+              <a href="#contact" class="btn-link">Réserver →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="card__badge">Populaire</span>
+            <div class="ph ph--square" role="img" aria-label="Photo prestation coupe et barbe" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <h3>Coupe + Barbe</h3>
+              <p class="card__price">20 €</p>
+              <a href="#contact" class="btn-link">Réserver →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="ph ph--square" role="img" aria-label="Photo prestation taille de barbe" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <h3>Barbe</h3>
+              <p class="card__price">À partir de 10 €</p>
+              <a href="#contact" class="btn-link">Réserver →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="ph ph--square" role="img" aria-label="Photo prestation coupe enfant" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <h3>Enfant</h3>
+              <p class="card__price">À partir de 12 €</p>
+              <a href="#contact" class="btn-link">Réserver →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABONNEMENTS ============ -->
+    <section class="section section--alt" id="abonnements">
+      <div class="container">
+        <p class="eyebrow" style="text-align:center; display:block;">Fidélité</p>
+        <h2 class="section-title">Abonnements</h2>
+
+        <div class="grid grid--3">
+          <div class="pricing-card">
+            <p class="pricing-card__name">2Y Essential</p>
+            <p class="pricing-card__price">29€<span>/mois</span></p>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 1 coupe / mois</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Réduction produits</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Priorité standard</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline btn-block">Choisir</a>
+          </div>
+
+          <div class="pricing-card pricing-card--featured">
+            <span class="pricing-card__badge">Populaire</span>
+            <p class="pricing-card__name">2Y Premium</p>
+            <p class="pricing-card__price">49€<span>/mois</span></p>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 2 coupes / mois</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Priorité</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Boissons offertes</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary btn-block">Choisir</a>
+          </div>
+
+          <div class="pricing-card">
+            <p class="pricing-card__name">2Y VIP</p>
+            <p class="pricing-card__price">69€<span>/mois</span></p>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Coupes illimitées</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Priorité maximale</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Invitations exclusives</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline btn-block">Choisir</a>
+          </div>
+        </div>
+
+        <div class="grid grid--3" style="margin-top: 1.75rem;">
+          <div class="util-card">
+            <p class="util-card__title">Fidélité</p>
+            <p>Chaque coupe compte.</p>
+            <div class="dots">
+              <span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span>
+              <span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span>
+              <span data-filled="true"></span><span data-filled="true"></span><span></span><span></span>
+            </div>
+            <p class="util-card__big">8 / 10</p>
+            <p style="font-size:0.85rem; color: var(--text-muted);">Encore 2 coupes pour débloquer votre récompense.</p>
+          </div>
+
+          <div class="util-card">
+            <p class="util-card__title">File d'attente</p>
+            <p>Suivez votre tour.</p>
+            <p class="util-card__big">2 clients</p>
+            <p style="font-size:0.85rem; color: var(--text-muted);">avant vous</p>
+            <div class="progress"><div class="progress__bar" style="width: 70%;"></div></div>
+            <p style="font-size:0.8rem; color: var(--text-muted);">Temps estimé : 18 min. Vous recevrez une notification lorsque votre tour approchera.</p>
+          </div>
+
+          <div class="util-card">
+            <p class="util-card__title">Réservation rapide</p>
+            <p>Prenez rendez-vous en quelques clics.</p>
+            <ul class="util-card__list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Choisissez votre prestation</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sélectionnez votre coiffeur</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Choisissez la date et l'heure</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary btn-block">Réserver maintenant</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LE SALON ============ -->
+    <section class="section" id="salon">
+      <div class="container salon">
+        <div class="ph ph--tall" role="img" aria-label="Photo du salon Barber 2Y" data-todo="photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+          <span>Photo du salon</span>
+        </div>
+        <div>
+          <p class="eyebrow">Le salon</p>
+          <h2 style="font-size: clamp(1.75rem, 4vw, 2.5rem); text-transform: uppercase;">
+            Bienvenue chez Barber 2Y
+          </h2>
+          <p>Un espace pensé pour la coupe, le style et la détente.</p>
+          <div class="salon__perks">
+            <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6-6 6 6M6 15l6 6 6-6"/></svg> Barber</span>
+            <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V5a3 3 0 016 0v3"/></svg> Gaming</span>
+            <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12l-1 9a5 5 0 01-10 0z"/><path d="M9 21h6M12 15v6"/></svg> Boissons</span>
+            <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/><path d="M2 3h2l2.6 12.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/></svg> Relais colis</span>
+          </div>
+          <a href="#contact" class="btn btn-outline">Découvrir le salon</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUITS ============ -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2 class="section-title">Produits</h2>
+        <div class="grid grid--4">
+          <div class="product-card">
+            <div class="ph ph--square" role="img" aria-label="Photo produit cire coiffante" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 3V1h4v2"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="product-card__body">
+              <h3>Cire coiffante</h3>
+              <p class="product-card__price">18,90 €</p>
+              <a href="#contact" class="btn-link">Acheter →</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="ph ph--square" role="img" aria-label="Photo produit huile à barbe" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 3V1h4v2"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="product-card__body">
+              <h3>Huile à barbe</h3>
+              <p class="product-card__price">24,90 €</p>
+              <a href="#contact" class="btn-link">Acheter →</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="ph ph--square" role="img" aria-label="Photo produit parfum 2Y" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 3V1h4v2"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="product-card__body">
+              <h3>Parfum 2Y</h3>
+              <p class="product-card__price">49,90 €</p>
+              <a href="#contact" class="btn-link">Acheter →</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="ph ph--square" role="img" aria-label="Photo produit shampooing" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 3V1h4v2"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="product-card__body">
+              <h3>Shampooing</h3>
+              <p class="product-card__price">14,90 €</p>
+              <a href="#contact" class="btn-link">Acheter →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACTUALITÉS ============ -->
+    <section class="section" id="actualites">
+      <div class="container">
+        <h2 class="section-title">Actualités</h2>
+        <div class="grid grid--3">
+          <article class="card actu-card">
+            <div class="ph ph--wide" role="img" aria-label="Photo actualité nouvelle collection" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <p class="actu-card__meta">12 mai 2024</p>
+              <h3>Nouvelle collection</h3>
+              <p>Découvrez nos nouveaux produits.</p>
+              <a href="#actualites" class="btn-link">Lire la suite →</a>
+            </div>
+          </article>
+          <article class="card actu-card">
+            <div class="ph ph--wide" role="img" aria-label="Photo actualité événement spécial" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <p class="actu-card__meta">8 mai 2024</p>
+              <h3>Événement spécial</h3>
+              <p>Soirée gaming &amp; coupes le 25 mai.</p>
+              <a href="#actualites" class="btn-link">Lire la suite →</a>
+            </div>
+          </article>
+          <article class="card actu-card">
+            <div class="ph ph--wide" role="img" aria-label="Photo actualité conseils barbe" data-todo="photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
+              <span>Photo</span>
+            </div>
+            <div class="card__body">
+              <p class="actu-card__meta">2 mai 2024</p>
+              <h3>Conseils barbe</h3>
+              <p>Les 3 étapes pour une barbe parfaite.</p>
+              <a href="#actualites" class="btn-link">Lire la suite →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOCIAL ============ -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2 class="section-title">Suivez l'expérience 2Y</h2>
+        <p style="text-align:center; margin-top:-1.5rem; margin-bottom:2rem; color:var(--text-muted);">Instagram &middot; TikTok</p>
+        <div class="social-grid">
+          <div class="ph ph--square" role="img" aria-label="Photo Instagram Barber 2Y" data-todo="photo"><span>Photo</span></div>
+          <div class="ph ph--square" role="img" aria-label="Photo Instagram Barber 2Y" data-todo="photo"><span>Photo</span></div>
+          <div class="ph ph--square" role="img" aria-label="Photo Instagram Barber 2Y" data-todo="photo"><span>Photo</span></div>
+          <div class="ph ph--square" role="img" aria-label="Photo Instagram Barber 2Y" data-todo="photo"><span>Photo</span></div>
+        </div>
+        <p style="text-align:center; margin-top:2rem;">
+          <a href="[À COMPLÉTER — lien Instagram]" class="btn btn-outline">Voir plus sur Instagram</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--dark" id="contact">
+      <div class="container contact">
+        <div>
+          <p class="eyebrow">Nous contacter</p>
+          <h2 style="font-size: clamp(1.75rem, 4vw, 2.5rem); text-transform: uppercase;">Réservez votre créneau</h2>
+          <p style="color: var(--text-muted);">
+            Un système de réservation en ligne arrive bientôt. En attendant, laissez-nous un message
+            et nous vous recontactons rapidement.
+          </p>
+          <ul class="contact__infos">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>[Adresse à compléter]</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z"/></svg>
+              <span>[Téléphone à compléter]</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <span>[Email à compléter]</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span>Lun&ndash;Sam : 9h&ndash;20h &middot; Dim : [à compléter]</span>
+            </li>
+          </ul>
+        </div>
+
+        <form id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required minlength="2" maxlength="80" autocomplete="name" placeholder="Votre nom" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="vous@exemple.fr" />
+          </div>
+          <div class="form-field">
+            <label for="telephone">Téléphone (facultatif)</label>
+            <input type="tel" id="telephone" name="telephone" autocomplete="tel" placeholder="06 00 00 00 00" />
+          </div>
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required minlength="10" maxlength="2000" placeholder="Prestation souhaitée, disponibilités..."></textarea>
+          </div>
+
+          <!-- Honeypot anti-spam -->
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="_honey">Ne pas remplir</label>
+            <input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Envoyer</button>
+          <p class="form-note">
+            En envoyant ce formulaire, vous acceptez notre
+            <a href="confidentialite.html" style="color:var(--accent); text-decoration:underline;">politique de confidentialité</a>.
+          </p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="images/logo/logo-header.png" width="480" height="501" alt="Barber 2Y" loading="lazy" />
+          <p style="font-size:0.85rem; color: var(--text-muted);">Barbershop &middot; coupe, barbe &amp; style.</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#prestations">Prestations</a></li>
+            <li><a href="#abonnements">Abonnements</a></li>
+            <li><a href="#salon">Le salon</a></li>
+            <li><a href="#actualites">Actualités</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Informations</h4>
+          <ul>
+            <li>Lun&ndash;Sam : 9h&ndash;20h</li>
+            <li>Dim : [à compléter]</li>
+            <li>[Adresse à compléter]</li>
+            <li>[Téléphone à compléter]</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Suivez-nous</h4>
+          <div class="footer__social">
+            <a href="[À COMPLÉTER — Instagram]" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a href="[À COMPLÉTER — TikTok]" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v11.5a3.5 3.5 0 11-3-3.46"/><path d="M14 3a5 5 0 005 5"/></svg>
+            </a>
+            <a href="[À COMPLÉTER — Facebook]" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 9h3V5h-3a4 4 0 00-4 4v2H7v4h3v6h4v-6h3l1-4h-4v-2a1 1 0 011-1z"/></svg>
+            </a>
+          </div>
+          <a href="#contact" class="btn btn-primary" style="margin-top:1.25rem;">Réserver maintenant</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; <span id="year">2026</span> Barber 2Y &mdash; Tous droits réservés.</p>
+        <div class="legal-links">
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Politique de confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies" hidden>
+    <p>
+      Ce site utilise des cookies nécessaires à son bon fonctionnement et, si vous l'acceptez, des cookies de mesure
+      d'audience. Aucune donnée n'est partagée sans votre consentement.
+      <a href="confidentialite.html" style="color: var(--accent); text-decoration: underline;">En savoir plus</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn-outline--light" id="cookie-refuse">Refuser</button>
+      <button class="btn btn-primary" id="cookie-accept">J'accepte</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
