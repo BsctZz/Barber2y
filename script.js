@@ -42,6 +42,18 @@
     window.addEventListener("scroll", toggleHeaderScrolled, { passive: true });
   }
 
+  // ---------- Header transparent -> noir progressif (page avec hero vidéo) ----------
+  var heroSection = document.querySelector(".hero");
+  if (header && heroSection) {
+    var HEADER_FADE_DISTANCE = 260;
+    var updateHeaderAlpha = function () {
+      var ratio = Math.min(window.scrollY / HEADER_FADE_DISTANCE, 1);
+      header.style.setProperty("--header-alpha", (ratio * 0.97).toFixed(3));
+    };
+    updateHeaderAlpha();
+    window.addEventListener("scroll", updateHeaderAlpha, { passive: true });
+  }
+
   // ---------- Cookie banner (RGPD) ----------
   var cookieBanner = document.getElementById("cookie-banner");
   var cookieAccept = document.getElementById("cookie-accept");

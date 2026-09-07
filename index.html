@@ -115,8 +115,14 @@
 
   <main id="main-content">
     <!-- ============ HERO ============ -->
-    <section class="hero container" id="accueil">
+    <section class="hero" id="accueil">
+      <video class="hero__video" autoplay muted loop playsinline poster="images/og-image.png">
+        <source src="video/barber_tools.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay"></div>
+
       <div class="hero__content">
+        <img class="hero__logo" src="images/logo/icon-192.png" width="192" height="192" alt="Barber 2Y" />
         <p class="hero__lead">Barber &middot; Style &middot; Confiance</p>
         <h1>
           Plus qu'une coupe.
@@ -128,7 +134,7 @@
         </p>
         <div class="hero__cta">
           <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
-          <a href="#salon" class="btn btn-outline">Découvrir le salon</a>
+          <a href="#salon" class="btn btn-outline--light">Découvrir le salon</a>
         </div>
         <div class="hero__badges">
           <div class="hero__badge">
@@ -149,12 +155,10 @@
           </div>
         </div>
       </div>
-      <div class="hero__media">
-        <div class="ph ph--hero" role="img" aria-label="Photo de l'intérieur du salon Barber 2Y" data-todo="photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M14 15l2.5-3 4.5 6"/></svg>
-          <span>Photo du salon</span>
-        </div>
-      </div>
+
+      <a href="#prestations" class="hero__scroll-cue" aria-label="Défiler vers les prestations">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </a>
     </section>
 
     <!-- ============ PRESTATIONS ============ -->
