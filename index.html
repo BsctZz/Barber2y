@@ -1,18 +1,17 @@
 <!--
-  TODO avant mise en ligne :
-  - Remplacer le domaine placeholder https://www.barber2y.fr partout (canonical, OG, JSON-LD, sitemap.xml, robots.txt)
-  - Remplacer toutes les infos [À COMPLÉTER] (adresse, téléphone, horaires, réseaux sociaux, SIRET)
-  - Remplacer les blocs .ph (placeholders gris) par de vraies photos WebP compressées (<200 Ko), en gardant width/height
-  - Renseigner le lien Planity (marque blanche) dans BOOKING_URL (script.js) : tous les liens .js-booking basculent dessus
+  TODO avant mise en ligne définitive (Hostinger, domaine barber2y.fr) :
+  - Téléphone / email : retirer l'attribut hidden des lignes data-todo="tel" / "email" et compléter (+ "telephone" dans le JSON-LD)
+  - Réseaux sociaux : renseigner SOCIAL_LINKS dans script.js (les liens et la section Instagram s'affichent seuls) + "sameAs" dans le JSON-LD
+  - Planity : renseigner BOOKING_URL dans script.js (tous les liens .js-booking basculent dessus)
+  - Photos : remplacer les blocs .ph (placeholders gris) par des <picture> WebP (cf. images/prestations), en gardant width/height
 -->
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barber 2Y — Barbershop, coupe &amp; barbe</title>
-  <meta name="description" content="Barber 2Y, votre barbershop pour coupe, barbe et style. Coupe dès 15€, abonnements fidélité, produits de soin. Réservez votre créneau en quelques clics." />
-  <meta name="keywords" content="barbershop, coupe homme, barbe, salon de coiffure homme, abonnement coiffeur, Barber 2Y" />
+  <title>Barber 2Y — Barbershop à Ars-sur-Moselle, près de Metz | Coupe &amp; barbe</title>
+  <meta name="description" content="Barber 2Y, barbershop à Ars-sur-Moselle à quelques minutes de Metz : coupe homme dès 15 €, taille de barbe, coupe enfant. Ouvert du mardi au samedi, 10h–19h." />
   <meta name="author" content="Barber 2Y" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.barber2y.fr/" />
@@ -20,37 +19,50 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.barber2y.fr/" />
-  <meta property="og:title" content="Barber 2Y — Barbershop, coupe &amp; barbe" />
-  <meta property="og:description" content="Plus qu'une coupe, une expérience. Découvrez nos prestations, nos abonnements fidélité et notre salon." />
+  <meta property="og:title" content="Barber 2Y — Barbershop à Ars-sur-Moselle" />
+  <meta property="og:description" content="Plus qu'une coupe, une expérience. Coupe homme, barbe et coupe enfant à Ars-sur-Moselle, près de Metz." />
   <meta property="og:image" content="https://www.barber2y.fr/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Barber 2Y — barbershop à Ars-sur-Moselle" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Barber 2Y" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Barber 2Y — Barbershop, coupe &amp; barbe" />
-  <meta name="twitter:description" content="Plus qu'une coupe, une expérience. Coupe, barbe, abonnements fidélité." />
+  <meta name="twitter:title" content="Barber 2Y — Barbershop à Ars-sur-Moselle" />
+  <meta name="twitter:description" content="Plus qu'une coupe, une expérience. Coupe homme, barbe et coupe enfant près de Metz." />
   <meta name="twitter:image" content="https://www.barber2y.fr/images/og-image.png" />
 
   <!-- Schema JSON-LD : commerce local -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "HairSalon",
+    "@type": "BarberShop",
+    "@id": "https://www.barber2y.fr/#salon",
     "name": "Barber 2Y",
+    "legalName": "BARBER 2Y",
+    "description": "Barbershop à Ars-sur-Moselle, près de Metz : coupe homme, taille de barbe et coupe enfant.",
+    "url": "https://www.barber2y.fr/",
+    "logo": "https://www.barber2y.fr/images/logo/icon-512.png",
     "image": "https://www.barber2y.fr/images/og-image.png",
-    "url": "https://www.barber2y.fr",
-    "telephone": "[À COMPLÉTER]",
-    "priceRange": "€€",
+    "priceRange": "10 € – 20 €",
+    "currenciesAccepted": "EUR",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "8 rue du Maréchal Foch",
       "addressLocality": "Ars-sur-Moselle",
       "postalCode": "57130",
+      "addressRegion": "Grand Est",
       "addressCountry": "FR"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 49.0759945,
+      "longitude": 6.0756545
+    },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Barber+2Y+8+rue+du+Mar%C3%A9chal+Foch+57130+Ars-sur-Moselle",
+    "areaServed": ["Ars-sur-Moselle", "Metz", "Jouy-aux-Arches", "Moulins-lès-Metz", "Ancy-Dornot", "Gravelotte", "Vaux"],
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -58,6 +70,12 @@
         "opens": "10:00",
         "closes": "19:00"
       }
+    ],
+    "makesOffer": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Coupe homme" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": 15, "priceCurrency": "EUR" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Coupe + barbe" }, "price": 20, "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Taille de barbe" }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": 10, "priceCurrency": "EUR" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Coupe enfant" }, "price": 14, "priceCurrency": "EUR" }
     ]
   }
   </script>
@@ -69,13 +87,10 @@
   <meta name="theme-color" content="#0b0b0b" />
 
   <!-- Polices -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
+  <link rel="preload" as="image" href="images/hero-poster.webp" type="image/webp" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -84,9 +99,9 @@
   <header class="header">
     <div class="container header__inner">
       <a href="#accueil" class="brand" aria-label="Barber 2Y — accueil">
-        <img class="brand__wordmark" src="images/logo/logo-header.png" width="480" height="501" alt="Barber 2Y" loading="eager" />
+        <picture><source srcset="images/logo/logo-header-160.webp" type="image/webp" /><img class="brand__wordmark" src="images/logo/logo-header-160.png" width="153" height="160" alt="Barber 2Y" fetchpriority="high" /></picture>
         <div class="brand__popout" aria-hidden="true">
-          <img class="brand__badge" src="images/logo/emblem.png" width="384" height="384" alt="" />
+          <picture><source srcset="images/logo/emblem-264.webp" type="image/webp" /><img class="brand__badge" src="images/logo/emblem-264.png" width="264" height="264" alt="" /></picture>
           <p class="brand__name">
             <span class="brand__name-main">Barber <span class="brand__name-accent">2Y</span></span>
             <span class="brand__name-tag">Coupe &middot; Style &middot; Confiance</span>
@@ -114,14 +129,15 @@
   <main id="main-content">
     <!-- ============ HERO ============ -->
     <section class="hero" id="accueil">
-      <video class="hero__video" autoplay muted loop playsinline poster="images/og-image.png">
-        <source src="video/barber_tools.mp4" type="video/mp4" />
+      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="images/hero-poster.webp" aria-hidden="true">
+        <source src="video/hero-854.mp4" type="video/mp4" media="(max-width: 900px)" />
+        <source src="video/hero-1280.mp4" type="video/mp4" />
       </video>
       <div class="hero__overlay"></div>
 
       <div class="hero__content">
-        <img class="hero__logo" src="images/logo/emblem.png" width="384" height="384" alt="Barber 2Y" />
-        <p class="hero__lead">Barber &middot; Style &middot; Confiance</p>
+        <picture><source srcset="images/logo/emblem-264.webp" type="image/webp" /><img class="hero__logo" src="images/logo/emblem-264.png" width="264" height="264" alt="Logo Barber 2Y" /></picture>
+        <p class="hero__lead">Barbershop &middot; Ars-sur-Moselle</p>
         <h1>
           Plus qu'une coupe.
           <span class="accent">Une expérience.</span>
@@ -167,7 +183,10 @@
 
         <div class="grid grid--4">
           <article class="card">
-            <img class="card__img" src="images/Coupe.jpeg" width="1536" height="1024" alt="Coupe homme réalisée chez Barber 2Y" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="images/prestations/coupe-480.webp 480w, images/prestations/coupe-800.webp 800w" sizes="(max-width: 600px) 92vw, (max-width: 1100px) 46vw, 300px" />
+              <img class="card__img" src="images/prestations/coupe-800.jpg" width="800" height="533" alt="Coupe homme dégradée réalisée chez Barber 2Y à Ars-sur-Moselle" loading="lazy" decoding="async" />
+            </picture>
             <div class="card__body">
               <h3>Coupe</h3>
               <p class="card__price">À partir de 15 €</p>
@@ -177,7 +196,10 @@
 
           <article class="card">
             <span class="card__badge">Populaire</span>
-            <img class="card__img" src="images/Coupe%20et%20barbe.jpeg" width="1536" height="1024" alt="Coupe et taille de barbe réalisées chez Barber 2Y" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="images/prestations/coupe-barbe-480.webp 480w, images/prestations/coupe-barbe-800.webp 800w" sizes="(max-width: 600px) 92vw, (max-width: 1100px) 46vw, 300px" />
+              <img class="card__img" src="images/prestations/coupe-barbe-800.jpg" width="800" height="533" alt="Coupe et taille de barbe réalisées chez Barber 2Y" loading="lazy" decoding="async" />
+            </picture>
             <div class="card__body">
               <h3>Coupe + Barbe</h3>
               <p class="card__price">20 €</p>
@@ -186,7 +208,10 @@
           </article>
 
           <article class="card">
-            <img class="card__img" src="images/Barbe.jpeg" width="1536" height="1024" alt="Taille de barbe réalisée chez Barber 2Y" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="images/prestations/barbe-480.webp 480w, images/prestations/barbe-800.webp 800w" sizes="(max-width: 600px) 92vw, (max-width: 1100px) 46vw, 300px" />
+              <img class="card__img" src="images/prestations/barbe-800.jpg" width="800" height="533" alt="Taille de barbe réalisée chez Barber 2Y" loading="lazy" decoding="async" />
+            </picture>
             <div class="card__body">
               <h3>Barbe</h3>
               <p class="card__price">À partir de 10 €</p>
@@ -195,7 +220,10 @@
           </article>
 
           <article class="card">
-            <img class="card__img" src="images/Coupe%20enfant.jpeg" width="1536" height="1024" alt="Coupe enfant réalisée chez Barber 2Y" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="images/prestations/coupe-enfant-480.webp 480w, images/prestations/coupe-enfant-800.webp 800w" sizes="(max-width: 600px) 92vw, (max-width: 1100px) 46vw, 300px" />
+              <img class="card__img" src="images/prestations/coupe-enfant-800.jpg" width="800" height="533" alt="Coupe enfant réalisée chez Barber 2Y" loading="lazy" decoding="async" />
+            </picture>
             <div class="card__body">
               <h3>Enfant</h3>
               <p class="card__price">14 €</p>
@@ -278,11 +306,15 @@
             Bienvenue chez Barber 2Y
           </h2>
           <p>Un espace pensé pour la coupe, le style et la détente.</p>
+          <p>
+            Situé au 8 rue du Maréchal Foch à Ars-sur-Moselle, à quelques minutes de Metz, Barber 2Y vous
+            accueille du mardi au samedi pour une coupe homme, une taille de barbe ou une coupe enfant.
+          </p>
           <div class="salon__perks">
             <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6-6 6 6M6 15l6 6 6-6"/></svg> Barber</span>
             <span class="salon__perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12l-1 9a5 5 0 01-10 0z"/><path d="M9 21h6M12 15v6"/></svg> Boissons</span>
           </div>
-          <a href="#contact" class="btn btn-outline">Découvrir le salon</a>
+          <a href="#contact" class="btn btn-outline">Nous trouver</a>
         </div>
       </div>
     </section>
@@ -342,8 +374,8 @@
     ============ FIN PRODUITS -->
 
 
-    <!-- ============ SOCIAL ============ -->
-    <section class="section section--alt">
+    <!-- ============ SOCIAL (s'affiche dès que SOCIAL_LINKS.instagram est renseigné dans script.js) ============ -->
+    <section class="section section--alt" id="social" data-social-section hidden>
       <div class="container">
         <h2 class="section-title" style="margin-bottom: 0.75rem;">Suivez l'expérience 2Y</h2>
         <p style="text-align:center; margin: 0 0 clamp(1.5rem, 4vw, 2.5rem); color:var(--text-muted);">Instagram &middot; TikTok</p>
@@ -354,7 +386,7 @@
           <div class="ph ph--square" role="img" aria-label="Photo Instagram Barber 2Y" data-todo="photo"><span>Photo</span></div>
         </div>
         <p style="text-align:center; margin-top:2rem;">
-          <a href="[À COMPLÉTER — lien Instagram]" class="btn btn-outline">Voir plus sur Instagram</a>
+          <a href="#" data-social="instagram" class="btn btn-outline" target="_blank" rel="noopener">Voir plus sur Instagram</a>
         </p>
       </div>
     </section>
@@ -365,23 +397,44 @@
         <div>
           <p class="eyebrow">Nous contacter</p>
           <h2 style="font-size: clamp(1.75rem, 4vw, 2.5rem); text-transform: uppercase;">Réservez votre créneau</h2>
-          <p style="color: var(--text-muted);">
+          <p style="color: var(--text-muted);" data-booking-pending>
             La réservation en ligne arrive très bientôt. En attendant, passez nous voir au salon.
           </p>
           <ul class="contact__infos">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-              <span>8 rue du Maréchal Foch, 57130 Ars-sur-Moselle</span>
+              <a class="contact__address" href="https://www.google.com/maps/dir/?api=1&amp;destination=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle" target="_blank" rel="noopener" data-directions aria-label="Itinéraire vers Barber 2Y, 8 rue du Maréchal Foch, 57130 Ars-sur-Moselle">8 rue du Maréchal Foch, 57130 Ars-sur-Moselle</a>
             </li>
-            <li>
+            <!-- TODO : retirer hidden + mettre le numéro (lien tel:) -->
+            <li data-todo="tel" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z"/></svg>
               <span>[Téléphone à compléter]</span>
             </li>
-            <li>
+            <!-- TODO : retirer hidden + mettre l'email (lien mailto:) -->
+            <li data-todo="email" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               <span>[Email à compléter]</span>
             </li>
           </ul>
+
+          <!-- Carte : l'iframe Google Maps n'est chargée qu'après consentement (bandeau cookies ou clic) -->
+          <div class="map">
+            <div class="map__frame" id="map-frame" data-map-src="https://maps.google.com/maps?q=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle&amp;z=17&amp;output=embed">
+              <div class="map__placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <p class="map__address">8 rue du Maréchal Foch<br />57130 Ars-sur-Moselle</p>
+                <button type="button" class="btn btn-primary" id="map-load">Afficher la carte</button>
+                <p class="map__note">
+                  En affichant la carte, vous acceptez que Google Maps dépose des cookies sur votre appareil.
+                  <a href="confidentialite.html#cookies">En savoir plus</a>
+                </p>
+              </div>
+            </div>
+            <a class="btn btn-outline--light map__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle" target="_blank" rel="noopener" data-directions>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>
+              Y aller
+            </a>
+          </div>
         </div>
 
         <div class="hours">
@@ -406,8 +459,8 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <img src="images/logo/logo-header.png" width="480" height="501" alt="Barber 2Y" loading="lazy" />
-          <p style="font-size:0.85rem; color: var(--text-muted);">Barbershop &middot; coupe, barbe &amp; style.</p>
+          <picture><source srcset="images/logo/logo-header-160.webp" type="image/webp" /><img src="images/logo/logo-header-160.png" width="153" height="160" alt="Barber 2Y" loading="lazy" /></picture>
+          <p style="font-size:0.85rem; color: var(--text-muted);">Barbershop à Ars-sur-Moselle &middot; coupe, barbe &amp; style.</p>
         </div>
         <div>
           <h4>Navigation</h4>
@@ -425,19 +478,19 @@
             <li>Mar&ndash;Sam : 10h&ndash;19h</li>
             <li>Dim &amp; Lun : fermé</li>
             <li>8 rue du Maréchal Foch<br />57130 Ars-sur-Moselle</li>
-            <li>[Téléphone à compléter]</li>
+            <li data-todo="tel" hidden>[Téléphone à compléter]</li>
           </ul>
         </div>
         <div>
-          <h4>Suivez-nous</h4>
+          <h4 data-social-section hidden>Suivez-nous</h4>
           <div class="footer__social">
-            <a href="[À COMPLÉTER — Instagram]" aria-label="Instagram">
+            <a href="#" data-social="instagram" aria-label="Barber 2Y sur Instagram" target="_blank" rel="noopener" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
             </a>
-            <a href="[À COMPLÉTER — TikTok]" aria-label="TikTok">
+            <a href="#" data-social="tiktok" aria-label="Barber 2Y sur TikTok" target="_blank" rel="noopener" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v11.5a3.5 3.5 0 11-3-3.46"/><path d="M14 3a5 5 0 005 5"/></svg>
             </a>
-            <a href="[À COMPLÉTER — Facebook]" aria-label="Facebook">
+            <a href="#" data-social="facebook" aria-label="Barber 2Y sur Facebook" target="_blank" rel="noopener" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 9h3V5h-3a4 4 0 00-4 4v2H7v4h3v6h4v-6h3l1-4h-4v-2a1 1 0 011-1z"/></svg>
             </a>
           </div>
@@ -450,22 +503,60 @@
         <div class="legal-links">
           <a href="mentions-legales.html">Mentions légales</a>
           <a href="confidentialite.html">Politique de confidentialité</a>
+          <button type="button" class="legal-links__btn" data-cookie-settings>Gérer les cookies</button>
         </div>
       </div>
     </div>
   </footer>
 
-  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies" hidden>
-    <p>
-      Ce site utilise des cookies nécessaires à son bon fonctionnement et, si vous l'acceptez, des cookies de mesure
-      d'audience. Aucune donnée n'est partagée sans votre consentement.
-      <a href="confidentialite.html" style="color: var(--accent); text-decoration: underline;">En savoir plus</a>
-    </p>
-    <div class="cookie-banner__actions">
-      <button class="btn btn-outline--light" id="cookie-refuse">Refuser</button>
-      <button class="btn btn-primary" id="cookie-accept">J'accepte</button>
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc" hidden>
+    <div class="cookie-banner__inner">
+      <span class="cookie-banner__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a3 3 0 003.8 3.8 3 3 0 004.2 4.2 3 3 0 001.8 1.8z"/><path d="M8.5 9.5h.01M15.5 15h.01M10 15.5h.01M12 12h.01"/></svg>
+      </span>
+      <div class="cookie-banner__text">
+        <p class="cookie-banner__title" id="cookie-title">Votre vie privée compte</p>
+        <p id="cookie-desc">
+          Ce site n'utilise que des éléments nécessaires à son fonctionnement. Avec votre accord, il affiche aussi
+          la carte Google Maps, qui peut déposer des cookies. Vous pouvez changer d'avis à tout moment via
+          « Gérer les cookies » en bas de page.
+          <a href="confidentialite.html#cookies">En savoir plus</a>
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn-outline--light" id="cookie-refuse" type="button">Tout refuser</button>
+        <button class="btn btn-primary" id="cookie-accept" type="button">Tout accepter</button>
+      </div>
     </div>
   </div>
+
+  <!-- Choix de l'application d'itinéraire -->
+  <dialog class="directions" id="directions-dialog" aria-labelledby="directions-title">
+    <p class="eyebrow">Itinéraire</p>
+    <h2 class="directions__title" id="directions-title">Aller chez Barber 2Y</h2>
+    <p class="directions__addr">8 rue du Maréchal Foch, 57130 Ars-sur-Moselle</p>
+    <div class="directions__apps">
+      <a class="directions__app" href="https://www.google.com/maps/dir/?api=1&amp;destination=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle" target="_blank" rel="noopener">
+        <span class="directions__icon directions__icon--gmaps" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12 2a7 7 0 00-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
+        </span>
+        Google Maps
+      </a>
+      <a class="directions__app" href="https://waze.com/ul?ll=49.0759945%2C6.0756545&amp;navigate=yes" target="_blank" rel="noopener">
+        <span class="directions__icon directions__icon--waze" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linecap="round"><path d="M5 16.5c-1.6-.3-2.6-1.4-2.3-2.4.9-.2 1.5-1 1.5-2.4C4.2 7.4 7.8 4 12.3 4S20.8 7.3 20.8 11.4c0 3.6-2.6 6.2-6.5 6.6"/><circle cx="7.5" cy="18.5" r="1.8"/><circle cx="15.5" cy="18.5" r="1.8"/><path d="M10 9.5h.01M15 9.5h.01M10 13c1.2 1.1 3 1.1 4.2 0"/></svg>
+        </span>
+        Waze
+      </a>
+      <a class="directions__app" href="https://maps.apple.com/?daddr=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle&amp;dirflg=d" target="_blank" rel="noopener">
+        <span class="directions__icon directions__icon--apple" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg>
+        </span>
+        Plans (Apple)
+      </a>
+    </div>
+    <button type="button" class="btn btn-outline--light btn-block" data-directions-close>Annuler</button>
+  </dialog>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Retour en haut de la page">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

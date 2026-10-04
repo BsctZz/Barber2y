@@ -30,6 +30,28 @@
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeNav);
     });
+
+    // Échap ferme le menu ; repasser en grand écran aussi (sinon le scroll reste bloqué)
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.getAttribute("data-open") === "true") {
+        closeNav();
+        navToggle.focus();
+      }
+    });
+    window.matchMedia("(min-width: 901px)").addEventListener("change", function (mq) {
+      if (mq.matches) closeNav();
+    });
+  }
+
+  // ---------- Vidéo hero : pas de téléchargement en mode économie de données / animations réduites ----------
+  var heroVideo = document.querySelector(".hero__video");
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (heroVideo && (saveData || window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    heroVideo.removeAttribute("autoplay");
+    heroVideo.querySelectorAll("source").forEach(function (source) {
+      source.remove();
+    });
+    heroVideo.load();
   }
 
   // ---------- Logo médaillon au scroll ----------
@@ -54,55 +76,115 @@
     window.addEventListener("scroll", updateHeaderAlpha, { passive: true });
   }
 
-  // ---------- Cookie banner (RGPD) ----------
+  // ---------- Consentement cookies (RGPD / recommandations CNIL) ----------
+  // - Rien de tiers n'est chargé avant le choix (carte Google Maps, futur outil d'audience).
+  // - "Tout refuser" aussi simple que "Tout accepter" ; choix modifiable via "Gérer les cookies".
+  // - Le choix est conservé 6 mois puis redemandé.
   var cookieBanner = document.getElementById("cookie-banner");
   var cookieAccept = document.getElementById("cookie-accept");
   var cookieRefuse = document.getElementById("cookie-refuse");
   var CONSENT_KEY = "barber2y_cookie_consent";
+  var CONSENT_MAX_AGE = 1000 * 60 * 60 * 24 * 182; // ~6 mois
   var backToTop = document.getElementById("back-to-top");
 
-  function markCookieDismissed() {
-    if (backToTop) backToTop.classList.add("cookie-dismissed");
-  }
-
-  function loadAnalyticsIfConsented() {
-    var consent = localStorage.getItem(CONSENT_KEY);
-    if (consent !== "accepted") return;
-    // TODO : brancher Google Analytics 4 ou Matomo ici une fois l'ID connu.
-    // Ne jamais charger le script de mesure d'audience avant ce point.
-  }
-
-  try {
-    if (cookieBanner && !localStorage.getItem(CONSENT_KEY)) {
-      cookieBanner.hidden = false;
-    } else {
-      markCookieDismissed();
+  function readConsent() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(CONSENT_KEY));
+      if (raw && (raw.value === "accepted" || raw.value === "refused") && Date.now() - raw.date < CONSENT_MAX_AGE) {
+        return raw.value;
+      }
+    } catch (e) {
+      /* ancienne valeur texte ou stockage indisponible : on redemande */
     }
-  } catch (e) {
-    /* localStorage indisponible (navigation privée) : on n'affiche pas le bandeau */
-    markCookieDismissed();
+    return null;
   }
+
+  function saveConsent(value) {
+    try {
+      localStorage.setItem(CONSENT_KEY, JSON.stringify({ value: value, date: Date.now() }));
+    } catch (e) {}
+  }
+
+  function showCookieBanner(show) {
+    if (!cookieBanner) return;
+    cookieBanner.hidden = !show;
+    if (backToTop) backToTop.classList.toggle("cookie-dismissed", !show);
+  }
+
+  function applyConsent() {
+    if (readConsent() !== "accepted") return;
+    loadMap();
+    // TODO : brancher ici un outil de mesure d'audience (GA4 / Matomo) le jour où il y en a un.
+  }
+
+  showCookieBanner(readConsent() === null);
 
   if (cookieAccept) {
     cookieAccept.addEventListener("click", function () {
-      try {
-        localStorage.setItem(CONSENT_KEY, "accepted");
-      } catch (e) {}
-      cookieBanner.hidden = true;
-      markCookieDismissed();
-      loadAnalyticsIfConsented();
+      saveConsent("accepted");
+      showCookieBanner(false);
+      applyConsent();
     });
   }
 
   if (cookieRefuse) {
     cookieRefuse.addEventListener("click", function () {
-      try {
-        localStorage.setItem(CONSENT_KEY, "refused");
-      } catch (e) {}
-      cookieBanner.hidden = true;
-      markCookieDismissed();
+      var hadMap = mapFrame && mapFrame.querySelector("iframe");
+      saveConsent("refused");
+      showCookieBanner(false);
+      // Retrait du consentement : on recharge pour retirer la carte déjà affichée
+      if (hadMap) window.location.reload();
     });
   }
+
+  document.querySelectorAll("[data-cookie-settings]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      showCookieBanner(true);
+      if (cookieAccept) cookieAccept.focus();
+    });
+  });
+
+  // ---------- Carte Google Maps (chargée seulement après consentement) ----------
+  var mapFrame = document.getElementById("map-frame");
+  var mapLoadBtn = document.getElementById("map-load");
+
+  function loadMap() {
+    if (!mapFrame || mapFrame.querySelector("iframe")) return;
+    var iframe = document.createElement("iframe");
+    iframe.src = mapFrame.getAttribute("data-map-src");
+    iframe.title = "Carte : Barber 2Y, 8 rue du Maréchal Foch à Ars-sur-Moselle";
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    iframe.allowFullscreen = true;
+    mapFrame.innerHTML = "";
+    mapFrame.appendChild(iframe);
+  }
+
+  if (mapLoadBtn) {
+    // Clic = consentement ponctuel pour la carte uniquement (non mémorisé)
+    mapLoadBtn.addEventListener("click", loadMap);
+  }
+
+  // ---------- Itinéraire : choix Google Maps / Waze / Plans ----------
+  var directionsDialog = document.getElementById("directions-dialog");
+  if (directionsDialog && typeof directionsDialog.showModal === "function") {
+    document.querySelectorAll("[data-directions]").forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        directionsDialog.showModal();
+      });
+    });
+    directionsDialog.querySelectorAll("[data-directions-close], .directions__app").forEach(function (el) {
+      el.addEventListener("click", function () {
+        directionsDialog.close();
+      });
+    });
+    // Clic sur le fond = fermer
+    directionsDialog.addEventListener("click", function (e) {
+      if (e.target === directionsDialog) directionsDialog.close();
+    });
+  }
+  // Sans <dialog> (vieux navigateurs), le lien ouvre directement Google Maps.
 
   // ---------- Bouton retour en haut ----------
   if (backToTop) {
@@ -117,7 +199,7 @@
     });
   }
 
-  loadAnalyticsIfConsented();
+  applyConsent();
 
   // ---------- Animations au scroll (reveal) ----------
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -197,5 +279,32 @@
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     });
+    document.querySelectorAll("[data-booking-pending]").forEach(function (el) {
+      el.hidden = true;
+    });
   }
+
+  // ---------- Réseaux sociaux ----------
+  // Renseigner les liens dès que les comptes existent : les icônes du footer et la section Instagram
+  // s'affichent automatiquement. Un lien vide = élément masqué (pas de lien cassé en ligne).
+  var SOCIAL_LINKS = {
+    instagram: "",
+    tiktok: "",
+    facebook: ""
+  };
+  var hasSocial = false;
+  document.querySelectorAll("[data-social]").forEach(function (link) {
+    var url = SOCIAL_LINKS[link.getAttribute("data-social")];
+    if (url) {
+      link.href = url;
+      link.hidden = false;
+      hasSocial = true;
+    } else {
+      link.hidden = true;
+    }
+  });
+  document.querySelectorAll("[data-social-section]").forEach(function (el) {
+    // La section photos Instagram n'a de sens qu'avec le compte Instagram
+    el.hidden = el.id === "social" ? !SOCIAL_LINKS.instagram : !hasSocial;
+  });
 })();

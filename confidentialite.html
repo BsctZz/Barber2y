@@ -10,19 +10,15 @@
   <link rel="icon" href="favicon.ico" sizes="32x32" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0b0b0b" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
       <a href="index.html" class="brand" aria-label="Barber 2Y — accueil">
-        <img class="brand__wordmark" src="images/logo/logo-header.png" width="480" height="501" alt="Barber 2Y" />
+        <picture><source srcset="images/logo/logo-header-160.webp" type="image/webp" /><img class="brand__wordmark" src="images/logo/logo-header-160.png" width="153" height="160" alt="Barber 2Y" /></picture>
       </a>
       <a href="index.html" class="btn btn-outline--light">Retour au site</a>
     </div>
@@ -31,7 +27,7 @@
   <main class="legal-page">
     <p class="breadcrumb"><a href="index.html">Accueil</a> / Politique de confidentialité</p>
     <h1>Politique de confidentialité</h1>
-    <p>Dernière mise à jour : <span class="placeholder">[mois année]</span></p>
+    <p>Dernière mise à jour : octobre 2026</p>
 
     <h2>1. Responsable du traitement</h2>
     <p>
@@ -41,34 +37,78 @@
     </p>
 
     <h2>2. Données collectées</h2>
+    <p>
+      Le site ne comporte ni formulaire ni compte client : <strong>aucune donnée personnelle n'est
+      demandée</strong>. Seules les données suivantes peuvent être traitées :
+    </p>
     <ul>
-      <li>Logs de connexion (IP, navigateur) — collectés par l'hébergeur</li>
-      <li>Préférence cookies (accepté / refusé) — stockage local du navigateur</li>
+      <li>Journaux de connexion (adresse IP, navigateur, pages consultées) — enregistrés par l'hébergeur pour la sécurité du site</li>
+      <li>Votre choix concernant les cookies (accepté / refusé et date) — enregistré dans votre navigateur uniquement</li>
+      <li>Si vous affichez la carte : les données techniques transmises à Google (adresse IP, cookies Google Maps)</li>
+      <li>Si vous réservez en ligne : les données saisies directement sur la plateforme Planity (nom, téléphone, email)</li>
     </ul>
 
-    <h2>3. Finalités du traitement</h2>
+    <h2>3. Finalités et bases légales</h2>
     <ul>
-      <li>Sécurité et maintenance du site</li>
+      <li>Sécurité et bon fonctionnement du site — intérêt légitime</li>
+      <li>Affichage de la carte Google Maps — votre consentement</li>
+      <li>Prise de rendez-vous via Planity — exécution de la réservation que vous demandez</li>
     </ul>
 
-    <h2>4. Cookies</h2>
+    <h2 id="cookies">4. Cookies et traceurs</h2>
     <p>
-      Ce site dépose un cookie technique (préférence de consentement, stockage local, durée indéfinie
-      jusqu'à suppression par l'utilisateur). Aucun cookie publicitaire n'est utilisé. Un outil de
-      mesure d'audience pourra être ajouté ultérieurement ; il ne sera chargé qu'après consentement
-      explicite.
+      Aucun cookie publicitaire ni outil de mesure d'audience n'est utilisé. Les polices d'écriture sont
+      hébergées sur le site lui-même : aucune connexion à Google n'a lieu sans votre accord.
+    </p>
+    <div class="legal-table">
+      <table>
+        <thead>
+          <tr><th>Élément</th><th>Finalité</th><th>Émetteur</th><th>Durée</th><th>Consentement</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Élément">barber2y_cookie_consent (stockage local)</td>
+            <td data-label="Finalité">Mémoriser votre choix cookies</td>
+            <td data-label="Émetteur">Barber 2Y</td>
+            <td data-label="Durée">6 mois</td>
+            <td data-label="Consentement">Non requis (nécessaire)</td>
+          </tr>
+          <tr>
+            <td data-label="Élément">Cookies Google Maps (ex. NID)</td>
+            <td data-label="Finalité">Afficher la carte interactive</td>
+            <td data-label="Émetteur">Google Ireland Ltd.</td>
+            <td data-label="Durée">Jusqu'à 6 mois</td>
+            <td data-label="Consentement">Oui — déposés uniquement si vous acceptez ou cliquez sur « Afficher la carte »</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Vous pouvez modifier votre choix à tout moment avec le bouton
+      <button type="button" class="legal-inline-btn" data-cookie-settings>Gérer les cookies</button>
+      (également présent en bas de chaque page). Sans consentement, la carte n'est pas chargée : l'adresse
+      et les liens d'itinéraire (Google Maps, Waze, Plans) restent disponibles. Ces liens ouvrent l'application
+      choisie, qui applique sa propre politique de confidentialité.
+    </p>
+    <p>
+      Politique de Google :
+      <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+      Google peut transférer des données hors de l'Union européenne, dans le cadre du Data Privacy Framework UE–États-Unis.
     </p>
 
-    <h2>5. Sous-traitants / tiers</h2>
-    <p>
-      Hébergement : Hostinger International Ltd. La prise de rendez-vous en ligne sera assurée par
-      Planity, qui traite alors les données de réservation selon sa propre politique de confidentialité.
-    </p>
+    <h2>5. Destinataires et sous-traitants</h2>
+    <ul>
+      <li>Hébergement : Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chypre</li>
+      <li>Carte (si consentement) : Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Irlande</li>
+      <li>Réservation en ligne : Planity, qui traite les données de réservation selon sa propre politique de confidentialité</li>
+    </ul>
+    <p>Aucune donnée n'est vendue ni cédée à des fins commerciales.</p>
 
     <h2>6. Durées de conservation</h2>
     <ul>
-      <li>Logs hébergeur : 12 mois maximum</li>
-      <li>Préférences cookies : jusqu'à suppression par l'utilisateur</li>
+      <li>Journaux de l'hébergeur : 12 mois maximum</li>
+      <li>Choix cookies : 6 mois, puis la question vous est reposée</li>
+      <li>Cookies Google Maps : selon la politique de Google (6 mois maximum pour NID)</li>
     </ul>
 
     <h2>7. Vos droits (RGPD)</h2>
@@ -91,12 +131,32 @@
       <div class="legal-links">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
+        <button type="button" class="legal-links__btn" data-cookie-settings>Gérer les cookies</button>
       </div>
     </div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc" hidden>
+    <div class="cookie-banner__inner">
+      <span class="cookie-banner__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a3 3 0 003.8 3.8 3 3 0 004.2 4.2 3 3 0 001.8 1.8z"/><path d="M8.5 9.5h.01M15.5 15h.01M10 15.5h.01M12 12h.01"/></svg>
+      </span>
+      <div class="cookie-banner__text">
+        <p class="cookie-banner__title" id="cookie-title">Votre vie privée compte</p>
+        <p id="cookie-desc">
+          Ce site n'utilise que des éléments nécessaires à son fonctionnement. Avec votre accord, il affiche aussi
+          la carte Google Maps, qui peut déposer des cookies. Vous pouvez changer d'avis à tout moment via
+          « Gérer les cookies » en bas de page.
+          <a href="confidentialite.html#cookies">En savoir plus</a>
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn-outline--light" id="cookie-refuse" type="button">Tout refuser</button>
+        <button class="btn btn-primary" id="cookie-accept" type="button">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
