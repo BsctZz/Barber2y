@@ -174,31 +174,28 @@
     });
   }
 
-  // ---------- Formulaire de contact ----------
-  var form = document.getElementById("contact-form");
-  var status = document.getElementById("form-status");
+  // ---------- Horaires : mise en avant du jour en cours ----------
+  var hoursList = document.getElementById("hours-list");
+  if (hoursList) {
+    var todayRow = hoursList.querySelector('[data-day="' + new Date().getDay() + '"]');
+    if (todayRow) {
+      todayRow.classList.add("is-today");
+      var badge = document.createElement("span");
+      badge.className = "hours__badge";
+      badge.textContent = "Aujourd'hui";
+      todayRow.querySelector(".hours__day").after(badge);
+    }
+  }
 
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      // Honeypot : si rempli, on ignore silencieusement (probable bot)
-      var honey = form.querySelector('[name="_honey"]');
-      if (honey && honey.value) {
-        form.reset();
-        return;
-      }
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      // TODO : brancher un service d'envoi (EmailJS, Formspree...) — pas de backend en statique pur.
-      // Exemple EmailJS :
-      // emailjs.sendForm("SERVICE_ID", "TEMPLATE_ID", form).then(...)
-      status.textContent = "Formulaire prêt : l'envoi n'est pas encore branché à un service d'email.";
-      status.dataset.state = "error";
+  // ---------- Réservation (Planity) ----------
+  // Renseigner ici le lien Planity (marque blanche) dès réception : tous les liens .js-booking basculent dessus.
+  // Tant qu'il est vide, ils pointent vers la section #contact.
+  var BOOKING_URL = "";
+  if (BOOKING_URL) {
+    document.querySelectorAll(".js-booking").forEach(function (link) {
+      link.href = BOOKING_URL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
     });
   }
 })();
