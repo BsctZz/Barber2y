@@ -109,12 +109,34 @@
         </div>
       </a>
 
+      <!-- Fond assombri derrière le menu mobile (clic = fermeture) -->
+      <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
       <nav class="nav" id="site-nav" data-open="false" aria-label="Navigation principale">
-        <a href="#accueil">Accueil</a>
-        <a href="#prestations">Prestations</a>
-        <a href="#abonnements">Abonnements</a>
-        <a href="#salon">Le salon</a>
-        <a href="#contact">Contact</a>
+        <div class="nav__head">
+          <picture><source srcset="images/logo/emblem-264.webp" type="image/webp" /><img class="nav__logo" src="images/logo/emblem-264.png" width="264" height="264" alt="" /></picture>
+          <button type="button" class="nav__close" id="nav-close" aria-label="Fermer le menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+
+        <a class="nav__link" href="#accueil"><span class="nav__num" aria-hidden="true">01</span>Accueil</a>
+        <a class="nav__link" href="#prestations"><span class="nav__num" aria-hidden="true">02</span>Prestations</a>
+        <a class="nav__link" href="#abonnements"><span class="nav__num" aria-hidden="true">03</span>Abonnements</a>
+        <a class="nav__link" href="#salon"><span class="nav__num" aria-hidden="true">04</span>Le salon</a>
+        <a class="nav__link" href="#contact"><span class="nav__num" aria-hidden="true">05</span>Contact</a>
+
+        <div class="nav__foot">
+          <a href="#contact" class="btn btn-primary btn-block js-booking">Réserver un créneau</a>
+          <p class="nav__info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            Mar&ndash;Sam &middot; 10h&ndash;19h
+          </p>
+          <a class="nav__info nav__info--link" href="https://www.google.com/maps/dir/?api=1&amp;destination=8%20rue%20du%20Mar%C3%A9chal%20Foch%2C%2057130%20Ars-sur-Moselle" target="_blank" rel="noopener" data-directions>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            8 rue du Maréchal Foch, Ars-sur-Moselle
+          </a>
+        </div>
       </nav>
 
       <div class="header__actions">

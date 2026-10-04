@@ -5,37 +5,82 @@
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ---------- Menu mobile ----------
+  // ---------- Menu mobile (tiroir) ----------
+  // Fermeture : bouton ✕, clic sur le fond, clic sur un lien, Échap, ou passage en grand écran.
   var navToggle = document.getElementById("nav-toggle");
   var nav = document.getElementById("site-nav");
+  var navBackdrop = document.getElementById("nav-backdrop");
+  var navClose = document.getElementById("nav-close");
 
-  function closeNav() {
+  function isNavOpen() {
+    return nav.getAttribute("data-open") === "true";
+  }
+
+  function openNav() {
+    nav.setAttribute("data-open", "true");
+    navToggle.setAttribute("aria-expanded", "true");
+    navToggle.setAttribute("aria-label", "Fermer le menu");
+    document.documentElement.setAttribute("data-nav-open", "true");
+    if (navBackdrop) {
+      navBackdrop.hidden = false;
+      requestAnimationFrame(function () {
+        navBackdrop.classList.add("is-visible");
+      });
+    }
+    if (navClose) navClose.focus({ preventScroll: true });
+  }
+
+  function closeNav(restoreFocus) {
+    if (!isNavOpen()) return;
     nav.setAttribute("data-open", "false");
     navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Ouvrir le menu");
     document.documentElement.removeAttribute("data-nav-open");
+    if (navBackdrop) {
+      navBackdrop.classList.remove("is-visible");
+      setTimeout(function () {
+        if (!isNavOpen()) navBackdrop.hidden = true;
+      }, 300);
+    }
+    if (restoreFocus === true) navToggle.focus({ preventScroll: true });
   }
 
   if (navToggle && nav) {
     navToggle.addEventListener("click", function () {
-      var isOpen = nav.getAttribute("data-open") === "true";
-      nav.setAttribute("data-open", String(!isOpen));
-      navToggle.setAttribute("aria-expanded", String(!isOpen));
-      if (isOpen) {
-        document.documentElement.removeAttribute("data-nav-open");
-      } else {
-        document.documentElement.setAttribute("data-nav-open", "true");
-      }
+      if (isNavOpen()) closeNav(true);
+      else openNav();
     });
+
+    if (navClose) navClose.addEventListener("click", function () { closeNav(true); });
+    if (navBackdrop) navBackdrop.addEventListener("click", function () { closeNav(true); });
 
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeNav);
     });
 
-    // Échap ferme le menu ; repasser en grand écran aussi (sinon le scroll reste bloqué)
+    // Clic n'importe où hors du menu (et hors du bouton burger) = fermeture
+    document.addEventListener("click", function (e) {
+      if (isNavOpen() && !nav.contains(e.target) && !navToggle.contains(e.target)) closeNav();
+    });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.getAttribute("data-open") === "true") {
-        closeNav();
-        navToggle.focus();
+      if (!isNavOpen()) return;
+      if (e.key === "Escape") {
+        closeNav(true);
+        return;
+      }
+      // Garde le focus clavier dans le menu tant qu'il est ouvert
+      if (e.key === "Tab") {
+        var focusables = nav.querySelectorAll("a, button");
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
     window.matchMedia("(min-width: 901px)").addEventListener("change", function (mq) {
@@ -233,7 +278,7 @@
 
   // ---------- Lien de nav actif selon la section visible ----------
   var sections = document.querySelectorAll("main section[id]");
-  var navLinks = document.querySelectorAll(".nav a[href^='#']");
+  var navLinks = document.querySelectorAll(".nav__link");
 
   if ("IntersectionObserver" in window && sections.length && navLinks.length) {
     var navObserver = new IntersectionObserver(
